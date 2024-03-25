@@ -1,0 +1,84 @@
+<html>
+
+<head>
+  <title>Rotating Rectangle</title> 
+  <script>
+    window.projectInfo = {
+        "title": "Animated Rotating Rectangle",
+        "description": "",
+        "demo_link": "/projects/bit/rotating_rectangle.html",
+        "project_link": "/projects/bit/rotating_rectangle.html",
+        "icon": "/images/me.jpg",
+        "preview": "",
+        "tags": [{"text": "fun", "color":"orange"}],
+        "dt":"'2024-03-25T17:39:17.821Z"
+    }
+</script>
+  <style>
+    :root {
+      --white: white;
+      --blue: red;
+      --grey: #efefef;
+      --background: blue;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      color: white;
+      background: var(--background);
+      justify-content: center;
+      align-items: center;
+    }
+
+    div:hover {
+      transform: rotate(45deg);
+/*       box-shadow: 0 0 0 0 white; */
+      padding: 30px;
+    }
+
+    div {
+      transition: 0.7s;
+      box-shadow:
+        0 0 0px 4px var(--white),
+        0 0 0px 8px var(--blue),
+        0 0 0px 12px var(--grey),
+        0 0 0px 16px var(--white),
+        0 0 0px 20px var(--blue),
+        0 0 0px 24px var(--grey),
+        0 0 0px 28px var(--white),
+        0 0 0px 32px var(--blue),
+        0 0 0px 36px var(--grey),
+        0 0 0px 40px var(--white),
+        0 0 0px 44px var(--blue),
+        0 0 0px 48px var(--grey),
+        0 0 0px 52px var(--white),
+        0 0 0px 32px var(--blue),
+        0 0 0px 36px var(--grey);
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,231 @@
+body{
+    background: #e0ffff;
+    background: #00ffff;
+    background-color: aliceblue;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-family: monospace;
+    flex-direction: column;
+    justify-content: space-between;
+}
+nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100px;
+    width: 100%;
+ }
+header{
+        width: 100%;
+}
+ section{
+     height: 100vh;
+     display: flex;
+     justify-content: center;
+ }
+ 
+ nav > a{
+     padding:10px;
+     text-decoration: none;
+     text-align: center;
+     color: #20dc1d;
+     font-weight: bold;
+     font-size: 1.2rem;
+     transition: 0.1s;
+     border-bottom:1px solid #20dc1d;
+ }
+ nav > a:hover{
+     background: #20dc1d;
+     color:white;
+     border-bottom:10px solid #19b317;
+     transform: rotateX(10deg);
+     text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+}
+.profile-logo{
+    height: 100px;
+    border-radius: 10px;
+    box-shadow:
+    0 0px 3.7px rgba(0, 0, 0, 0.017),
+    0 0px 7.4px rgba(0, 0, 0, 0.024),
+    0 0px 11.4px rgba(0, 0, 0, 0.03),
+    0 0px 16.7px rgba(0, 0, 0, 0.036),
+    0 0px 25.8px rgba(0, 0, 0, 0.043),
+    0 0px 51px rgba(0, 0, 0, 0.06)  ;
+}
+.content{
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+.profile{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.sideBar{
+    width: 25%;
+    min-width: 275px;
+    display: flex;
+    background-color: #1e90ff;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.mainContent{
+    overflow: hidden;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+.my-name{
+    color: white;
+    font-family: "Kanit";
+    margin: 0;
+    text-align: center;
+    text-shadow: 0 1px 0 #d8d8d8, 0 2px 0 #d89999, 0 3px 0 #d59292, 0 4px 0 #d28a8a, 0 5px 0 #cf8383, 0 6px 0 #cd7c7c, 0 7px 0 #ca7474, 0 8px 0 #c76d6d, 0 0 5px rgba(230, 139, 139, 0.05), 0 -1px 3px rgba(230, 139, 139, 0.2), 0 9px 9px rgba(230, 139, 139, 0.3), 0 12px 12px rgba(230, 139, 139, 0.3), 0 15px 15px rgba(230, 139, 139, 0.3);
+}
+
+footer{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+footer img{
+    background: white;
+    border-radius: 10px;
+    height: 20px;
+    width: auto;
+    margin: 10px;
+    padding:10px;
+}
+
+footer img:hover{
+    background: #efefef;
+}
+
+.svg-text {
+    transform: rotateX(10deg) scale(1.2);
+    font-family: serif;
+}
+
+.svg-text__shaded {
+    text-shadow: 0 1px 1px rgba(33, 33, 33, .15), 0 3px 10px rgba(33, 33, 33, .15), 0 3px 20px rgba(33, 33, 33, .35);
+}
+
+.svg-text .bold {
+    font-size: 2rem;
+    font-family: 'Kreon', sans-serif;
+    font-weight: 700;
+}
+
+.button:hover{
+    background-color: #efefef;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px){
+    body{overflow: hidden;}
+    .sideBar{
+        width: 100vw !important;
+        position: fixed !important;
+        height: 100vh !important;
+        z-index: 10 !important;
+        animation: home 5s forwards; 
+    }
+      @keyframes home {
+        0% {transform: translateY(0%);}
+        50% {transform: translateY(0%);}
+        100% {transform: translateY(-100%); display: none;}
+      }
+      .mainContent{
+        animation: mainCt 5s forwards;
+      }
+      @keyframes mainCt {
+        0% {transform: translateY(+100%);}
+        50% {transform: translateY(+100%);}
+        100% {transform: translateY(0%);}
+      }
+}
+
+
+/* --------------------------------------------------------Fun2.html--------------------------------------- */
+        html {
+            --size:30vh;
+            --offset: calc(var(--size)/4);
+            --deg0: 0deg;
+            --deg90: 90deg;
+            --deg180: 180deg;
+            --deg270: 270deg;
+            --radial:radial-gradient(var(--size), rgba(145, 143, 143, 0.3), 15%, rgb(255, 255, 255));
+            --radial: radial-gradient(var(--size), rgb(32 220 29), 15%, rgb(226 255 230));
+        }
+        .scene {
+            position: fixed;
+            z-index: -1;
+            height: var(--size);
+            width: var(--size);
+            transform-style: preserve-3d;
+            animation: rotate 5s linear infinite;
+        }
+            
+            
+        .box {
+            --angleX: 0deg;
+            --angleY: 0deg;
+            width: 100%;
+            transition: 1s linear;
+            backface-visibility: visible;
+            height: 100%;
+            background-image: var(--radial);
+            position: absolute;
+            transform:rotateX(var(--angleX)) rotateY(var(--angleY)) translateZ(var(--offset));
+        }
+
+        .front {
+            --angleX: var(--deg0);
+            --angleY: var(--deg0);
+        }
+        .bottom {
+            --angleX: var(--deg90);
+            --angleY: var(--deg0);
+        }
+        .top {
+            --angleX: var(--deg270);
+            --angleY: var(--deg0);
+        }
+        .left {
+            --angleX: var(--deg0);
+            --angleY: var(--deg90);
+        }
+        .back {
+            --angleX: var(--deg0);
+            --angleY: var(--deg180);
+        }
+        .right {
+            --angleX: var(--deg0);
+            --angleY: var(--deg270);
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate3d(1, 0, 0, 0deg);
+            }
+
+            to {
+                transform: rotate3d(1, 1, 1, 360deg);
+            }
+        }
+  

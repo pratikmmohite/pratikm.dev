@@ -1,0 +1,186 @@
+<html>
+  <head>
+    <script>
+      window.projectInfo = {
+        title: "Basic HTML Editor",
+        description: "",
+        demo_link: "/projects/bit/html_editor.html",
+        project_link: "/projects/bit/html_editor.html",
+        icon: "/images/me.jpg",
+        preview: "",
+        tags: [{ text: "fun", color: "orange" }],
+        dt: "'2024-03-25T17:39:17.821Z",
+      };
+    </script>
+    <title>Basic HTML Editor</title>
+    <style>
+      body {
+        font-size: 1.3rem;
+        font-weight: 500;
+        font-family: monospace;
+        margin: 0;
+        padding: 0;
+        background-color: aliceblue;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .item {
+        width: 100%;
+        height: 100%;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      .editor {
+        background-color: #0002;
+      }
+      #editor-textarea {
+        color: #817a7a;
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+        resize: none;
+        font-size: 1.3rem;
+        font-weight: 500;
+        font-family: monospace;
+        outline: none;
+        border: none;
+      }
+      .button {
+        outline: none;
+        border: none;
+        padding: 10px;
+        color: white;
+        position: fixed;
+        background-color: #27c93b;
+        font-weight: 600;
+        bottom: 20px;
+        cursor: pointer;
+        right: 20px;
+      }
+      .button:hover {
+        filter: brightness(0.9);
+      }
+      #editor-iframe {
+        margin: 0;
+        padding: 0;
+        border: none;
+        width: 100%;
+        height: 100%;
+      }
+      .preview {
+        background-color: lightblue;
+      }
+    </style>
+
+    <script>
+      var initialHtml = `<html>
+  <head>
+    <title>Cosmos</title>
+  </head>
+ <body>
+    <h1>Hello</h1>
+ </body>
+ </html>`;
+      function onSrcChange(w) {
+        var iframe = document.getElementById("editor-iframe");
+        var src = document.getElementById("editor-textarea");
+        iframe.srcdoc = src.value;
+        window.localStorage["src"] = src.value;
+      }
+      function reset() {
+        var iframe = document.getElementById("editor-iframe");
+        var src = document.getElementById("editor-textarea");
+        src.value = initialHtml;
+        iframe.srcdoc = initialHtml;
+      }
+      function enableTab(el) {
+        el.onkeydown = function (e) {
+          if (e.keyCode === 9) {
+            // tab was pressed
+
+            // get caret position/selection
+            var val = this.value,
+              start = this.selectionStart,
+              end = this.selectionEnd;
+
+            // set textarea value to: text before caret + tab + text after caret
+            this.value = val.substring(0, start) + "\t" + val.substring(end);
+
+            // put caret at right position again
+            this.selectionStart = this.selectionEnd = start + 1;
+
+            // prevent the focus lose
+            return false;
+          }
+        };
+      }
+
+      function onload() {
+        var content = window.localStorage["src"];
+        if (!content) {
+          content = initialHtml;
+        }
+        var iframe = (document.getElementById("editor-iframe").srcdoc =
+          content);
+        var src = document.getElementById("editor-textarea");
+        src.value = content;
+        enableTab(src);
+      }
+    </script>
+  </head>
+  <body onload="onload()">
+    <button class="button" onclick="reset()">RESET</button>
+    <div class="container">
+      <div class="item editor">
+        <textarea oninput="onSrcChange()" id="editor-textarea"></textarea>
+      </div>
+      <div class="item preview">
+        <iframe id="editor-iframe" />
+      </div>
+    </div>
+  </body>
+</html>

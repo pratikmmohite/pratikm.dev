@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        window.projectInfo =  {
+            "title": "3D Cube",
+            "description": "",
+            "demo_link": "/projects/bit/cube.html",
+            "project_link": "/projects/bit/cube.html",
+            "icon": "/images/me.jpg",
+            "preview": "",
+            "tags": [{"text": "fun", "color":"orange"}],
+            "dt":"'2024-03-25T17:39:17.821Z"
+        }
+    </script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating 3D Cube</title>
+    <style>
+        html {
+            --offset: 13.33vh;
+            --deg0: 0deg;
+            --deg90: 90deg;
+            --deg180: 180deg;
+            --deg270: 270deg;
+            --radial:radial-gradient(50vh, rgba(145, 143, 143, 0.3), 15%, rgb(255, 255, 255));
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e0ffff;
+            background: #00ffff;
+        }
+
+        .scene {
+            position: fixed;
+            z-index: -1;
+            height: 50vh;
+            width: 50vh;
+            transform-style: preserve-3d;
+            animation: rotate 5s linear infinite;
+        }
+            
+            
+        .box {
+            --angleX: 0deg;
+            --angleY: 0deg;
+            width: 100%;
+            transition: 1s linear;
+            backface-visibility: visible;
+            height: 100%;
+            background-image: var(--radial);
+            position: absolute;
+            transform:rotateX(var(--angleX)) rotateY(var(--angleY)) translateZ(var(--offset));
+        }
+
+        .front {
+            --angleX: var(--deg0);
+            --angleY: var(--deg0);
+        }
+        .bottom {
+            --angleX: var(--deg90);
+            --angleY: var(--deg0);
+        }
+        .top {
+            --angleX: var(--deg270);
+            --angleY: var(--deg0);
+        }
+        .left {
+            --angleX: var(--deg0);
+            --angleY: var(--deg90);
+        }
+        .back {
+            --angleX: var(--deg0);
+            --angleY: var(--deg180);
+        }
+        .right {
+            --angleX: var(--deg0);
+            --angleY: var(--deg270);
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate3d(1, 0, 0, 0deg);
+            }
+
+            to {
+                transform: rotate3d(1, 1, 1, 360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scene">
+        <div class="front box"></div>
+        <div class="back box"></div>
+        <div class="left box"></div>
+        <div class="right box"></div>
+        <div class="top box"></div>
+        <div class="bottom box"></div>
+    </div>
+</body>
+
+</html>

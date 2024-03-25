@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Eye Test</title>
+    <script>
+      window.projectInfo = {
+        "title": "Eye Check Grid",
+        "description": "",
+        "demo_link": "/projects/bit/eye.html",
+        "project_link": "/projects/bit/eye.html",
+        "icon": "/images/me.jpg",
+        "preview": "",
+        "tags": [{"text": "fun", "color":"orange"}],
+        "dt":"'2024-03-25T17:39:17.821Z"
+    }
+  </script>
+    <style>
+      body {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      div {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        background-color: aliceblue;
+        border: 1px solid green;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+      }
+      div:hover {
+        background-color: rgb(226, 236, 245);
+      }
+      span {
+        position: absolute;
+        font-size: 1.1rem;
+        padding: 10px;
+        background-color: rgb(206, 206, 206);
+        top: 0;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body></body>
+  <script>
+    function shuffleArray() {
+      let array = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".split(
+        " "
+      );
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return " " + array[0];
+    }
+
+    for (i = 36; i > 0; i--) {
+      var div = document.createElement("div");
+      div.style.color = "black";
+      div.style.fontWeight = "bold";
+      div.style.workSpacing = 2;
+      div.style.overflow = "hidden";
+      div.style.textAlign = "center";
+      div.style.whiteSpace = "nowrap";
+      div.innerHTML = "<span>" + (37 - i) + "</span>" + shuffleArray();
+      div.style.fontSize = i + "mm";
+      document.body.appendChild(div);
+    }
+  </script>
+</html>
