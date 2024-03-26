@@ -1,107 +1,97 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <script>
-        window.projectInfo =  {
-            "title": "3D Cube",
-            "description": "",
-            "demo_link": "/projects/bit/cube.html",
-            "project_link": "/projects/bit/cube.html",
-            "icon": "/images/me.jpg",
-            "preview": "",
-            "tags": [{"text": "fun", "color":"orange"}],
-            "dt":"'2024-03-25T17:39:17.821Z"
-        }
+      window.projectInfo = {
+        title: "3D Cube",
+        description: "",
+        demo_link: "/projects/bit/cube.html",
+        project_link: "/projects/bit/cube.html",
+        icon: "/images/me.jpg",
+        preview: "",
+        tags: [{ text: "fun", color: "orange" }],
+        dt: "'2024-03-25T17:39:17.821Z",
+      };
     </script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rotating 3D Cube</title>
+    <script type="module" src="/js/webcomponents/index.js"></script>
     <style>
-        html {
-            --offset: 13.33vh;
-            --deg0: 0deg;
-            --deg90: 90deg;
-            --deg180: 180deg;
-            --deg270: 270deg;
-            --radial:radial-gradient(50vh, rgba(145, 143, 143, 0.3), 15%, rgb(255, 255, 255));
-        }
-
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #e0ffff;
-            background: #00ffff;
-        }
-
-        .scene {
-            position: fixed;
-            z-index: -1;
-            height: 50vh;
-            width: 50vh;
-            transform-style: preserve-3d;
-            animation: rotate 5s linear infinite;
-        }
-            
-            
-        .box {
-            --angleX: 0deg;
-            --angleY: 0deg;
-            width: 100%;
-            transition: 1s linear;
-            backface-visibility: visible;
-            height: 100%;
-            background-image: var(--radial);
-            position: absolute;
-            transform:rotateX(var(--angleX)) rotateY(var(--angleY)) translateZ(var(--offset));
-        }
-
-        .front {
-            --angleX: var(--deg0);
-            --angleY: var(--deg0);
-        }
-        .bottom {
-            --angleX: var(--deg90);
-            --angleY: var(--deg0);
-        }
-        .top {
-            --angleX: var(--deg270);
-            --angleY: var(--deg0);
-        }
-        .left {
-            --angleX: var(--deg0);
-            --angleY: var(--deg90);
-        }
-        .back {
-            --angleX: var(--deg0);
-            --angleY: var(--deg180);
-        }
-        .right {
-            --angleX: var(--deg0);
-            --angleY: var(--deg270);
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate3d(1, 0, 0, 0deg);
-            }
-
-            to {
-                transform: rotate3d(1, 1, 1, 360deg);
-            }
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body{
+        background-color: honeydew;
+      }
+      .titleLabel {
+        padding: 10px 0px;
+      }
+      .content {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .controls {
+        z-index: 1;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap:5px;
+        width: 30vw;
+        border-radius: 10px;
+        border: 1px solid #efefef;
+        position: fixed;
+        right: 10px;
+        top: 10px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <div class="scene">
-        <div class="front box"></div>
-        <div class="back box"></div>
-        <div class="left box"></div>
-        <div class="right box"></div>
-        <div class="top box"></div>
-        <div class="bottom box"></div>
+  <body>
+    <div class="controls">
+      <h3 class="titleLabel">Cube Controls</h3>
+      <label>Offset</label>
+      <input id="offsetController" type="range" min="1" max="100" value="10" />
+      <label>Size</label>
+      <input id="sizeController" type="range" min="1" max="100" value="10" />
+      <div>
+        <input id="useMouseMovementController" name="useMouseMovementController" type="checkbox"/>
+        <label for="useMouseMovementController">Use mouse movement</label>
+     </div>
     </div>
-</body>
-
+    <div class="content">
+      <p-cube id="cubeController" offset="10vw" size="50vh"></p-cube>
+    </div>
+    <script>
+      const offsetController = document.getElementById("offsetController");
+      const sizeController = document.getElementById("sizeController");
+      const cubeController = document.getElementById("cubeController");
+      const useMouseMovementController = document.getElementById("useMouseMovementController");
+      function handleMouseMovement(e){
+        cubeController.setAttribute("offset", `${e.clientX*0.8}px`);
+        cubeController.setAttribute("size", `${e.clientY*0.8}px`);
+      }
+      useMouseMovementController.addEventListener("input", (e)=>{
+        if(useMouseMovementController.checked){
+            document.body.addEventListener("mousemove", handleMouseMovement);
+        }
+        else{
+            document.body.removeEventListener("mousemove", handleMouseMovement);
+        }
+      })
+      offsetController.addEventListener("input", () => {
+        let val = offsetController.value;
+        cubeController.setAttribute("offset", `${val}vh`);
+      });
+      sizeController.addEventListener("input", () => {
+        let val = sizeController.value;
+        cubeController.setAttribute("size", `${val}vh`);
+      });
+    </script>
+  </body>
 </html>
