@@ -11,7 +11,6 @@ body {
   width: 100%;
 
   display: grid;
-  gap: 10px;
   flex-direction: row;
   justify-content: space-between;
   grid-template-rows: auto 1fr auto;
@@ -19,14 +18,15 @@ body {
   grid-template-areas:
     "p-header p-nav"
     "p-header p-main"
-    "p-header p-footer";
+    "p-footer p-main";
 }
 #p-header {
   grid-area: p-header;
   height: 100%;
   width: 100%;
-  display: flex;
+  padding: 0px 20px;
   background-color: #1e90ff;
+  display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -36,17 +36,22 @@ body {
 }
 #p-footer {
   grid-area: p-footer;
+  width: fit-content;
+  grid-template-rows: 1fr;
+  width: 100%;
+  gap: 15px;
+  padding: 10px 0px;
+  background-color: #1e90ff;
   display: flex;
-  align-items: center;
   flex-direction: row;
+  align-items: center;
   justify-content: center;
 }
 #p-footer img {
   background: white;
   border-radius: 10px;
-  height: 20px;
-  width: auto;
-  margin: 10px;
+  width: 35px;
+  height: 35px;
   padding: 10px;
 }
 #p-footer img:hover {
@@ -59,6 +64,8 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-direction: column;
+  gap:10px;
   font-size: 2rem;
   font-weight: bold;
 }
@@ -119,19 +126,20 @@ body {
     flex-direction: column;
   }
   #p-header {
-    height: 100vh;
-    width: 100%;
-  }
-  #p-nav {
-    height: 10vh;
-    width: 100%;
-  }
-  #p-main {
-    height: 80vh;
+    height: 85vh;
     width: 100%;
   }
   #p-footer {
-    height: 10vh;
+    height: 15vh;
     width: 100%;
   }
+  #p-nav {
+    height: 15vh;
+    width: 100%;
+  }
+  #p-main {
+    height: 85vh;
+    width: 100%;
+  }
+  
 }
