@@ -37,26 +37,13 @@
       href="https://fonts.googleapis.com/css2?family=Kreon:wght@300..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <script type="text/javascript">
-      (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", "e4kclwhssg");
-    </script>
+  
   </head>
-
   <body>
-    <header id="p-header">
+    <div class="p-layout">
+    <header id="p-header"  class="p-flex-c p-flex-fdc">
       <aside id="p-sidebar">
-        <div class="profile">
+        <div class="profile p-flex-c p-flex-fdc">
           <img
             class="profile-logo"
             height="100px"
@@ -70,7 +57,15 @@
      
       </aside>
     </header>
-    <footer id="p-footer">
+    <nav id="p-nav"  class="p-flex-c p-flex-fdr">
+      <a href="#">Home</a>
+      <a href="#">Project</a>
+      <a href="#">Diary</a>
+    </nav>
+    <main id="p-main" class="p-flex-c p-flex-fdr">
+      <p-cube size="20vw"></p-cube>
+    </main>
+    <footer id="p-footer" class="p-flex-c p-flex-fdr">
       <a href="https://github.com/pratikmmohite" target="_blank" rel="noopener">
         <img width="30px" height="30px" src="images/github.png" alt="github"
       /></a>
@@ -124,15 +119,21 @@
           alt="gmail"
       /></a>
     </footer>
-    <nav id="p-nav">
-      <a href="#">Home</a>
-      <a href="#">Project</a>
-      <a href="#">Contact</a>
-      <a href="#">About</a>
-    </nav>
-    <main id="p-main">
-      <p-cube size="20vw"></p-cube>
-    </main>
+  </div>
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "e4kclwhssg");
+    </script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
