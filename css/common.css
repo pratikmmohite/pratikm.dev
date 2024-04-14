@@ -1,0 +1,16 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.p-flex-c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.p-flex-fdr {
+  flex-direction: row;
+}
+.p-flex-fdc {
+  flex-direction: column;
+}

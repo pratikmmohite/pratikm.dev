@@ -8,7 +8,6 @@ class PCube extends HTMLElement {
   initFields(){
     this.offset = this.getAttribute("offset") ?? "calc(var(--size)/4)";
     this.size = this.getAttribute("size") ?? "30vh";
-
   }
   connectedCallback() {
     this.initFields();

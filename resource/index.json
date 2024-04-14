@@ -2,8 +2,8 @@
     {
         "title": "3D Cube",
         "description": "",
-        "demo_link": "/projects/bit/cube.html",
-        "project_link": "/projects/bit/cube.html",
+        "demo_link": "/bit/cube.html",
+        "project_link": "/bit/cube.html",
         "icon": "/images/me.jpg",
         "preview": "",
         "tags": [{"text": "fun", "color":"orange"}],
@@ -12,8 +12,8 @@
     {
         "title": "Eye Check Grid",
         "description": "",
-        "demo_link": "/projects/bit/eye.html",
-        "project_link": "/projects/bit/eye.html",
+        "demo_link": "/bit/eye_grid.html",
+        "project_link": "/bit/eye.html",
         "icon": "/images/me.jpg",
         "preview": "",
         "tags": [{"text": "fun", "color":"orange"}],
@@ -22,8 +22,8 @@
     {
         "title": "Animated Rotating Rectangle",
         "description": "",
-        "demo_link": "/projects/bit/rotating_rectangle.html",
-        "project_link": "/projects/bit/rotating_rectangle.html",
+        "demo_link": "/bit/rotating_rectangle.html",
+        "project_link": "/bit/rotating_rectangle.html",
         "icon": "/images/me.jpg",
         "preview": "",
         "tags": [{"text": "fun", "color":"orange"}],
@@ -32,8 +32,8 @@
     {
         "title": "Basic HTML Editor",
         "description": "",
-        "demo_link": "/projects/bit/html_editor.html",
-        "project_link": "/projects/bit/html_editor.html",
+        "demo_link": "/bit/html_editor.html",
+        "project_link": "/bit/html_editor.html",
         "icon": "/images/me.jpg",
         "preview": "",
         "tags": [{"text": "fun", "color":"orange"}],
