@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: https://pratikm.dev/sitemap.xml

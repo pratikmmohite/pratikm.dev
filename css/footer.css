@@ -1,0 +1,16 @@
+.pc-footer {
+  width: 100%;
+  gap: 15px;
+  padding: 10px 0px;
+  background-color: #1e90ff;
+}
+.pc-footer img {
+  background: white;
+  border-radius: 10px;
+  width: 35px;
+  height: 35px;
+  padding: 10px;
+}
+.pc-footer img:hover {
+  background: #efefef;
+}
