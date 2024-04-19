@@ -1,22 +1,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <script>
-      window.projectInfo = {
-        title: "3D Cube",
-        description: "",
-        demo_link: "/projects/bit/cube.html",
-        project_link: "/projects/bit/cube.html",
-        icon: "/images/me.jpg",
-        preview: "",
-        tags: [{ text: "fun", color: "orange" }],
-        dt: "'2024-03-25T17:39:17.821Z",
-      };
-    </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rotating 3D Cube</title>
-    <script type="module" src="/js/webcomponents/index.js"></script>
+    <script async src="/js/webcomponents.js"></script>
     <style>
       * {
         margin: 0;
@@ -53,6 +41,7 @@
   </head>
 
   <body>
+    <p-load-project-info projectId="2"/>
     <div class="controls">
       <h3 class="titleLabel">Cube Controls</h3>
       <label>Offset</label>

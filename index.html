@@ -4,13 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Pratik Mohite - Utils</title>
-    <meta name="title" content="Pratik Mohite - Utils" />
+    <title>Pratik Mohite - Profile</title>
+    <meta name="title" content="Pratik Mohite - Profile" />
     <meta
       name="description"
       content="Software Developer | React Developer | Flutter Developer | .Net Developer"
     />
-    <script type="module" src="./js/webcomponents/index.js"></script>
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.facebook.com/PratikMMohite" />
@@ -31,26 +30,21 @@
     />
     <meta property="twitter:image" content="./images/me.jpg" />
     <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/common.css" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kreon:wght@300..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
+    <script type="module" src="./js/pre_index.js">
+    </script>
   </head>
   <body>
+    <span id="template-container"></span>
     <div class="p-layout">
       <p-header class="p-header"></p-header>
       <p-nav class="p-nav"></p-nav>
       <main class="p-main p-main-section">
-        <p-cube  class="p-cube" size="20vw" style="z-index: -1;"></p-cube>
+        <p-cube class="p-cube" size="20vw" style="z-index: -1"></p-cube>
         <p-bit-list class="p-bit-list"></p-bit-list>
+        <p-byte-list class="p-bit-list"></p-bit-list>
       </main>
       <p-footer class="p-footer"></p-footer>
     </div>
-    <script type="module"src="./js/tracker.js"></script>
-    <script src="./js/service_worker.js"></script>
+    <script defer src="./js/post_index.js"></script>
   </body>
 </html>

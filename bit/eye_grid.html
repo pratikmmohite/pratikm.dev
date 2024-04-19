@@ -4,18 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Eye Test</title>
-    <script>
-      window.projectInfo = {
-        "title": "Eye Check Grid",
-        "description": "",
-        "demo_link": "/projects/bit/eye.html",
-        "project_link": "/projects/bit/eye.html",
-        "icon": "/images/me.jpg",
-        "preview": "",
-        "tags": [{"text": "fun", "color":"orange"}],
-        "dt":"'2024-03-25T17:39:17.821Z"
-    }
-  </script>
+    <script async src="/js/webcomponents.js"></script>
     <style>
       body {
         display: grid;
@@ -54,8 +43,9 @@
       }
     </style>
   </head>
-  <body></body>
+  <body><p-load-project-info projectId="3"/></body>
   <script>
+    
     function shuffleArray() {
       let array = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".split(
         " "

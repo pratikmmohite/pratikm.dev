@@ -1,0 +1,198 @@
+
+<template id="p-nav">
+  <style>
+        /* Begin: Common */
+        * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .p-flex-c {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .p-flex-fdr {
+      flex-direction: row;
+    }
+    .p-flex-fdc {
+      flex-direction: column;
+    }
+/* End: Common */
+    .pc-nav {
+      height: 47px;
+      margin: 10px 0px 5px 0px;
+      justify-content: space-evenly;
+    }
+    .pc-nav > a {
+      padding: 10px;
+      text-decoration: none;
+      text-align: center;
+      color: #20dc1d;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: 0.1s;
+      border-bottom: 1px solid #20dc1d;
+    }
+    .pc-nav > a:hover {
+      background: #20dc1d;
+      color: white;
+      border-bottom: 10px solid #19b317;
+      transform: rotateX(10deg);
+      text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.1);
+    }
+
+
+  </style>
+  <nav class="pc-nav p-flex-c p-flex-fdr">
+    <a href="#">Home</a>
+    <a href="#">Project</a>
+    <a href="#">Diary</a>
+  </nav>
+</template>
+
+<template id="p-header">
+  <style>
+     /* Begin: Common */
+     * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .p-flex-c {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .p-flex-fdr {
+      flex-direction: row;
+    }
+    .p-flex-fdc {
+      flex-direction: column;
+    }
+/* End: Common */
+    .pc-header {
+      height: 100%;
+      width: 100%;
+      padding: 0px 20px;
+      background-color: #1e90ff;
+    }
+
+    .pc-profile-logo {
+      height: 100px;
+      border-radius: 10px;
+      box-shadow: 0 0px 3.7px rgba(0, 0, 0, 0.017),
+        0 0px 7.4px rgba(0, 0, 0, 0.024), 0 0px 11.4px rgba(0, 0, 0, 0.03),
+        0 0px 16.7px rgba(0, 0, 0, 0.036), 0 0px 25.8px rgba(0, 0, 0, 0.043),
+        0 0px 51px rgba(0, 0, 0, 0.06);
+    }
+    .pc-profile {
+      gap: 20px;
+    }
+  </style>
+  <header class="pc-header p-flex-c p-flex-fdc">
+    <aside>
+      <div class="pc-profile p-flex-c p-flex-fdc">
+        <img
+          class="pc-profile-logo"
+          height="100px"
+          width="100px"
+          src="https://avatars.githubusercontent.com/u/32018912"
+          alt="profile"
+          loading="lazy"
+        />
+        <p-name text="PRATIK MOHITE"></p-name>
+      </div>
+    </aside>
+  </header>
+</template>
+
+<template id="p-footer">
+  <style>
+     /* Begin: Common */
+     * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .p-flex-c {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .p-flex-fdr {
+      flex-direction: row;
+    }
+    .p-flex-fdc {
+      flex-direction: column;
+    }
+/* End: Common */
+    .pc-footer {
+      width: 100%;
+      gap: 15px;
+      padding: 10px 0px;
+      background-color: #1e90ff;
+    }
+    .pc-footer img {
+      background: white;
+      border-radius: 10px;
+      width: 35px;
+      height: 35px;
+      padding: 10px;
+    }
+    .pc-footer img:hover {
+      background: #efefef;
+    }
+  </style>
+  <footer class="pc-footer p-flex-c p-flex-fdr">
+    <a href="https://github.com/pratikmmohite" target="_blank" rel="noopener">
+      <img width="30px" height="30px" src="images/github.png" alt="github"
+    /></a>
+    <a href="https://pratikmmohite.blogspot.com/" target="_blank" rel="noopener"
+      ><img
+        width="30px"
+        height="30px"
+        loading="lazy"
+        src="images/blogger.png"
+        alt="blogger"
+    /></a>
+    <a
+      href="https://www.sololearn.com/Profile/3003792"
+      target="_blank"
+      rel="noopener"
+      ><img
+        width="30px"
+        height="30px"
+        loading="lazy"
+        src="images/sololearn.svg"
+        alt="sololearn"
+    /></a>
+    <a
+      href="https://www.hackerrank.com/pratikmmohite"
+      target="_blank"
+      rel="noopener"
+      ><img
+        width="30px"
+        height="30px"
+        src="images/hackerrank.png"
+        loading="lazy"
+        alt="hackerrank"
+    /></a>
+    <a href="https://twitter.com/PratikMMohite" target="_blank" rel="noopener"
+      ><img
+        width="30px"
+        height="30px"
+        src="images/x.png"
+        loading="lazy"
+        alt="linkedin"
+    /></a>
+    <a href="mailto:mohitepm1998@gmail.com" target="_blank" rel="noopener"
+      ><img
+        width="30px"
+        height="30px"
+        src="images/email.png"
+        loading="lazy"
+        alt="gmail"
+    /></a>
+  </footer>
+</template>
