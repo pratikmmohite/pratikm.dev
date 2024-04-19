@@ -1,42 +1,68 @@
 [
     {
+        "project_id": "1",
+        "title": "Clock",
+        "description": "",
+        "demo_link": "/bit/clock.html",
+        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/clock.html",
+        "icon": "/images/me.jpg",
+        "preview": "",
+        "tags": [],
+        "dt":"'2024-03-25T17:39:17.821Z"
+    },
+    {
+        "project_id": "2",
         "title": "3D Cube",
         "description": "",
         "demo_link": "/bit/cube.html",
-        "project_link": "/bit/cube.html",
+        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/cube.html",
         "icon": "/images/me.jpg",
         "preview": "",
-        "tags": [{"text": "fun", "color":"orange"}],
+        "tags": [],
         "dt":"'2024-03-25T17:39:17.821Z"
     },
     {
+        "project_id": "3",
         "title": "Eye Check Grid",
         "description": "",
         "demo_link": "/bit/eye_grid.html",
-        "project_link": "/bit/eye.html",
+        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/eye_grid.html",
         "icon": "/images/me.jpg",
         "preview": "",
-        "tags": [{"text": "fun", "color":"orange"}],
+        "tags": [],
         "dt":"'2024-03-25T17:39:17.821Z"
     },
     {
+        "project_id": "4",
         "title": "Animated Rotating Rectangle",
         "description": "",
         "demo_link": "/bit/rotating_rectangle.html",
-        "project_link": "/bit/rotating_rectangle.html",
+        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/rotating_rectangle.html",
         "icon": "/images/me.jpg",
         "preview": "",
-        "tags": [{"text": "fun", "color":"orange"}],
+        "tags": [],
         "dt":"'2024-03-25T17:39:17.821Z"
     },
     {
+        "project_id": "5",
         "title": "Basic HTML Editor",
         "description": "",
         "demo_link": "/bit/html_editor.html",
-        "project_link": "/bit/html_editor.html",
+        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/html_editor.html",
         "icon": "/images/me.jpg",
         "preview": "",
-        "tags": [{"text": "fun", "color":"orange"}],
+        "tags": [],
+        "dt":"'2024-03-25T17:39:17.821Z"
+    },
+    {
+        "project_id": "6",
+        "title": "Batchat Gat Manager",
+        "description": "",
+        "demo_link": "https://bg.pratikm.dev",
+        "project_link": "https://github.com/pratikmmohite/bachatgatmanager",
+        "icon": "/images/me.jpg",
+        "preview": "",
+        "tags": [],
         "dt":"'2024-03-25T17:39:17.821Z"
     }
 ]

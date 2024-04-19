@@ -1,18 +1,7 @@
 <html>
   <head>
-    <script>
-      window.projectInfo = {
-        title: "Basic HTML Editor",
-        description: "",
-        demo_link: "/projects/bit/html_editor.html",
-        project_link: "/projects/bit/html_editor.html",
-        icon: "/images/me.jpg",
-        preview: "",
-        tags: [{ text: "fun", color: "orange" }],
-        dt: "'2024-03-25T17:39:17.821Z",
-      };
-    </script>
     <title>Basic HTML Editor</title>
+    <script async src="/js/webcomponents.js"></script>
     <style>
       body {
         font-size: 1.3rem;
@@ -173,13 +162,14 @@
     </script>
   </head>
   <body onload="onload()">
+    <p-load-project-info projectId="5"/>
     <button class="button" onclick="reset()">RESET</button>
     <div class="container">
       <div class="item editor">
         <textarea oninput="onSrcChange()" id="editor-textarea"></textarea>
       </div>
       <div class="item preview">
-        <iframe id="editor-iframe" />
+        <iframe id="editor-iframe"></iframe>
       </div>
     </div>
   </body>
