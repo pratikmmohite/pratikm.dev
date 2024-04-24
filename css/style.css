@@ -17,7 +17,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   grid-template-rows: auto 1fr auto;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr 5fr;
   grid-template-areas:
     "p-header p-nav"
     "p-header p-main"
