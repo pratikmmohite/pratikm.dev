@@ -1,0 +1,1821 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Junit and sequence viewer for dotnet</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #edf1f6;
+        --surface: #fff;
+        --surface-alt: #f7f9fc;
+        --border: #d9e1ea;
+        --text: #16202a;
+        --text-muted: #607286;
+        --primary: #1f6feb;
+        --primary-hover: #0f57c6;
+        --primary-light: #ecf3ff;
+        --green: #169b62;
+        --green-bg: #eafaf2;
+        --red: #d63a3a;
+        --red-bg: #fdeeee;
+        --amber: #c88910;
+        --amber-bg: #fff8e9;
+        --slate: #4d6175;
+        --radius: 10px;
+        --shadow: 0 2px 8px rgba(17, 24, 39, 0.07);
+        --shadow-lg: 0 8px 20px rgba(17, 24, 39, 0.12);
+        --tab: #e8eef7;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(180deg, #f4f7fb 0%, #e9eff7 100%);
+        color: var(--text);
+        line-height: 1.5;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 22px;
+      }
+
+      header {
+        background: linear-gradient(135deg, #0f1f30 0%, #223850 100%);
+        color: #fff;
+        box-shadow: var(--shadow-lg);
+      }
+      header .container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-top: 18px;
+        padding-bottom: 18px;
+      }
+      header h1 {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+      }
+      header p {
+        font-size: 13px;
+        color: #9fb2c6;
+        margin-left: auto;
+        max-width: 58%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      header .version {
+        font-size: 12px;
+        color: #c8d5e3;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 2px 8px;
+        border-radius: 999px;
+      }
+
+      #dropZone {
+        border: 2px dashed var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+        padding: 44px 20px;
+        text-align: center;
+        margin-bottom: 18px;
+        cursor: pointer;
+        transition: 0.2s ease;
+        box-shadow: var(--shadow);
+      }
+      #dropZone:hover {
+        border-color: var(--primary);
+        background: #f5f9ff;
+      }
+      #dropZone.hover {
+        border-color: var(--primary);
+        background: #e9f1ff;
+        box-shadow: 0 0 0 4px rgba(31, 111, 235, 0.12);
+      }
+      #dropZone .title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      #dropZone .sub {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      #dropZone .btn {
+        margin-top: 12px;
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 7px;
+        background: var(--primary);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .tab-btn {
+        appearance: none;
+        border: 1px solid transparent;
+        background: var(--tab);
+        color: #304458;
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+      .tab-btn:hover {
+        background: #dde8f7;
+      }
+      .tab-btn.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary-hover);
+      }
+
+      .tab-panel {
+        display: none;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+
+      .block {
+        background: var(--surface);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-bottom: 14px;
+        overflow: hidden;
+      }
+      .table-block {
+        overflow: auto;
+      }
+
+      .grid-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+      .card {
+        background: var(--surface);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 14px 16px;
+        border-left: 4px solid transparent;
+      }
+      .card .label {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .card .value {
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1.15;
+      }
+      .card.total {
+        border-left-color: var(--slate);
+      }
+      .card.total .value {
+        color: var(--slate);
+      }
+      .card.pass,
+      .card.completed {
+        border-left-color: var(--green);
+      }
+      .card.pass .value,
+      .card.completed .value {
+        color: var(--green);
+      }
+      .card.fail,
+      .card.incomplete {
+        border-left-color: var(--red);
+      }
+      .card.fail .value,
+      .card.incomplete .value {
+        color: var(--red);
+      }
+      .card.skip {
+        border-left-color: var(--amber);
+      }
+      .card.skip .value {
+        color: var(--amber);
+      }
+      .card.namespaces {
+        border-left-color: var(--primary);
+      }
+      .card.namespaces .value {
+        color: var(--primary);
+      }
+
+      .progress-wrap {
+        background: var(--surface);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 14px 16px;
+        margin-bottom: 16px;
+      }
+      .progress-head {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+      }
+      .progress {
+        height: 8px;
+        border-radius: 999px;
+        background: #e8edf3;
+        margin-top: 8px;
+        overflow: hidden;
+      }
+      .progress-inner {
+        height: 100%;
+        width: 0;
+        transition: width 0.3s ease;
+        background: var(--green);
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px;
+      }
+      .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: 1 1 160px;
+        min-width: 0;
+      }
+      .filter-group label {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+      .filter-group input,
+      .filter-group select {
+        width: 100%;
+        min-width: 0;
+        padding: 8px 10px;
+        border-radius: 7px;
+        border: 1px solid var(--border);
+        background: var(--surface-alt);
+        font-size: 13px;
+      }
+      .filter-group input:focus,
+      .filter-group select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.15);
+      }
+
+      .info {
+        padding: 8px 12px;
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #ecf0f5;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: var(--surface-alt);
+        font-size: 12px;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        user-select: none;
+        cursor: pointer;
+      }
+      th:hover {
+        background: #eaf1fa;
+        color: #2f4b66;
+      }
+      th .sort-arrow {
+        font-size: 10px;
+        opacity: 0.45;
+        margin-left: 4px;
+      }
+      th.sorted .sort-arrow {
+        opacity: 1;
+        color: var(--primary);
+      }
+      tr[data-row="data"]:hover {
+        background: #f5f9ff;
+      }
+
+      .status-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .status-chip .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+      .status-pass {
+        background: var(--green-bg);
+        color: var(--green);
+      }
+      .status-pass .dot {
+        background: var(--green);
+      }
+      .status-fail {
+        background: var(--red-bg);
+        color: var(--red);
+      }
+      .status-fail .dot {
+        background: var(--red);
+      }
+      .status-skipped {
+        background: var(--amber-bg);
+        color: var(--amber);
+      }
+      .status-skipped .dot {
+        background: var(--amber);
+      }
+
+      .mono {
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+          monospace;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .ellipsize {
+        max-width: 340px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .test-name {
+        max-width: 420px;
+        word-break: break-word;
+      }
+
+      .details-row {
+        display: none;
+      }
+      .details-cell {
+        padding: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .details-wrap {
+        margin: 0 12px 12px;
+        background: #f7f9fd;
+        border-left: 3px solid var(--primary);
+        border-radius: 0 0 8px 8px;
+        padding: 14px;
+      }
+      .details-wrap h4 {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        color: var(--text-muted);
+        margin: 10px 0 6px;
+      }
+      .details-wrap h4:first-child {
+        margin-top: 0;
+      }
+      .details-wrap pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-size: 12px;
+        line-height: 1.55;
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+          monospace;
+        padding: 10px 12px;
+        border-radius: 6px;
+        background: #132235;
+        color: #e2ebf5;
+        max-height: 260px;
+        overflow: auto;
+      }
+      .details-wrap pre.empty {
+        background: transparent;
+        color: var(--text-muted);
+        padding: 2px 0;
+        font-style: italic;
+        font-family: inherit;
+      }
+      .detail-line {
+        display: flex;
+        gap: 10px;
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+      .detail-label {
+        min-width: 110px;
+        color: var(--text-muted);
+        font-weight: 700;
+      }
+
+      .ns-tag {
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .seq-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--surface-alt);
+        color: var(--text-muted);
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .test-params {
+        font-size: 11px;
+        color: var(--slate);
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+          monospace;
+        margin-top: 2px;
+        word-break: break-word;
+      }
+
+      .source-info {
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 12px 14px;
+        margin-bottom: 14px;
+        box-shadow: var(--shadow);
+        font-size: 13px;
+        color: var(--text-muted);
+        display: none;
+      }
+      .source-info strong {
+        color: var(--text);
+      }
+      .source-info code {
+        background: var(--surface-alt);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+          monospace;
+      }
+
+      .subtabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .subtab-btn {
+        appearance: none;
+        border: 1px solid transparent;
+        background: #edf3fb;
+        color: #34506b;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .subtab-btn.active {
+        background: var(--primary);
+        color: #fff;
+      }
+      .subpanel {
+        display: none;
+      }
+      .subpanel.active {
+        display: block;
+      }
+
+      .tree {
+        background: var(--surface);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 14px;
+      }
+      .tree-node {
+        margin-left: 0;
+      }
+      .tree-node .tree-node {
+        margin-left: 22px;
+      }
+      .tree-branch {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .tree-branch:hover {
+        background: var(--surface-alt);
+      }
+      .tree-branch .toggle {
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        font-size: 10px;
+        transition: transform 0.2s;
+      }
+      .tree-branch .toggle.open {
+        transform: rotate(90deg);
+      }
+      .tree-branch .count {
+        font-size: 11px;
+        color: var(--text-muted);
+        background: var(--surface-alt);
+        padding: 1px 6px;
+        border-radius: 10px;
+        margin-left: auto;
+      }
+      .tree-children {
+        display: none;
+      }
+      .tree-children.open {
+        display: block;
+      }
+      .tree-leaf {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px 5px 38px;
+        font-size: 12px;
+        color: var(--text);
+        border-radius: 4px;
+      }
+      .tree-leaf:hover {
+        background: var(--surface-alt);
+      }
+      .leaf-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .leaf-dot.completed {
+        background: var(--green);
+      }
+      .leaf-dot.incomplete {
+        background: var(--red);
+      }
+
+      .empty {
+        padding: 26px 14px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      .compare-wrap {
+        padding: 14px;
+      }
+      .compare-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .compare-picker {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--surface-alt);
+        padding: 12px;
+      }
+      .compare-picker h3 {
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+      .compare-picker input {
+        width: 100%;
+      }
+      .compare-meta {
+        margin-top: 8px;
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+      .compare-results {
+        margin-top: 10px;
+      }
+      .compare-results table td:first-child {
+        font-weight: 700;
+      }
+      .delta-positive {
+        color: var(--green);
+        font-weight: 700;
+      }
+      .delta-negative {
+        color: var(--red);
+        font-weight: 700;
+      }
+      .delta-neutral {
+        color: var(--text-muted);
+        font-weight: 700;
+      }
+
+      @media (max-width: 800px) {
+        .container {
+          padding: 14px;
+        }
+        header .container {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        header p {
+          margin-left: 0;
+          max-width: 100%;
+        }
+        th,
+        td {
+          padding: 8px 9px;
+          font-size: 12px;
+        }
+        .ellipsize {
+          max-width: 140px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Junit and sequence viewer for dotnet</h1>
+        <span class="version" id="appVersion">v1.0.0</span>
+        <p id="fileInfo">No file loaded</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div id="dropZone">
+        <div class="title">Drag and drop XML files here</div>
+        <div class="sub">
+          Supports JUnit test reports and dotnet sequence files
+        </div>
+        <div class="btn">Browse Files</div>
+        <input
+          type="file"
+          id="fileInput"
+          multiple
+          accept=".xml"
+          style="display: none"
+        />
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="advanced">JUnit Viewer</button>
+        <button class="tab-btn" data-tab="sequence">Sequence Viewer</button>
+        <button class="tab-btn" data-tab="compare">Compare Files</button>
+      </div>
+
+      <section id="tab-advanced" class="tab-panel active">
+        <div class="grid-cards">
+          <div class="card total">
+            <div class="label">Total Tests</div>
+            <div class="value" id="m-total">0</div>
+          </div>
+          <div class="card pass">
+            <div class="label">Passed</div>
+            <div class="value" id="m-pass">0</div>
+          </div>
+          <div class="card fail">
+            <div class="label">Failed</div>
+            <div class="value" id="m-fail">0</div>
+          </div>
+          <div class="card skip">
+            <div class="label">Skipped</div>
+            <div class="value" id="m-skip">0</div>
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-head">
+            <strong>Pass Rate</strong><span id="m-rate">0%</span>
+          </div>
+          <div class="progress">
+            <div class="progress-inner" id="m-rate-bar"></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="filters">
+            <div class="filter-group">
+              <label>Status</label
+              ><select id="a-status">
+                <option value="">All</option>
+                <option value="pass">Passed</option>
+                <option value="fail">Failed</option>
+                <option value="skipped">Skipped</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Suite</label
+              ><input id="a-suite" placeholder="Filter suite" />
+            </div>
+            <div class="filter-group">
+              <label>Class</label
+              ><input id="a-class" placeholder="Filter class" />
+            </div>
+            <div class="filter-group">
+              <label>Search</label
+              ><input id="a-search" placeholder="Search test name" />
+            </div>
+          </div>
+        </div>
+        <div class="info" id="a-info">Showing 0 of 0 tests</div>
+        <div class="block table-block">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 64px">Index</th>
+                <th data-sort="suite" class="a-sort">
+                  Suite <span class="sort-arrow">&#9650;</span>
+                </th>
+                <th data-sort="classname" class="a-sort">
+                  Class <span class="sort-arrow">&#9650;</span>
+                </th>
+                <th data-sort="name" class="a-sort">
+                  Test <span class="sort-arrow">&#9650;</span>
+                </th>
+                <th data-sort="status" class="a-sort">
+                  Status <span class="sort-arrow">&#9650;</span>
+                </th>
+                <th data-sort="time" class="a-sort">
+                  Time <span class="sort-arrow">&#9650;</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="a-body">
+              <tr>
+                <td colspan="6" class="empty">No results</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tab-sequence" class="tab-panel">
+        <div class="grid-cards">
+          <div class="card total">
+            <div class="label">Total Tests</div>
+            <div class="value" id="s-total">0</div>
+          </div>
+          <div class="card completed">
+            <div class="label">Completed</div>
+            <div class="value" id="s-completed">0</div>
+          </div>
+          <div class="card incomplete">
+            <div class="label">Incomplete</div>
+            <div class="value" id="s-incomplete">0</div>
+          </div>
+          <div class="card namespaces">
+            <div class="label">Namespaces</div>
+            <div class="value" id="s-ns">0</div>
+          </div>
+        </div>
+
+        <div id="s-source" class="source-info"></div>
+
+        <div class="subtabs" id="seqSubtabs">
+          <button class="subtab-btn active" data-sub="table">
+            Sequence Order
+          </button>
+          <button class="subtab-btn" data-sub="tree">Namespace Tree</button>
+        </div>
+
+        <div id="sub-table" class="subpanel active">
+          <div class="block">
+            <div class="filters">
+              <div class="filter-group">
+                <label>Status</label
+                ><select id="s-status">
+                  <option value="">All</option>
+                  <option value="True">Completed</option>
+                  <option value="False">Incomplete</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Namespace</label
+                ><select id="s-namespace">
+                  <option value="">All Namespaces</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Search</label
+                ><input
+                  id="s-search"
+                  placeholder="Search by full name, class, or method"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="info" id="s-info">Showing 0 of 0 tests</div>
+          <div class="block table-block">
+            <table>
+              <thead>
+                <tr>
+                  <th data-sort="seq" class="s-sort">
+                    # <span class="sort-arrow">&#9650;</span>
+                  </th>
+                  <th data-sort="namespace" class="s-sort">
+                    Namespace <span class="sort-arrow">&#9650;</span>
+                  </th>
+                  <th data-sort="className" class="s-sort">
+                    Class <span class="sort-arrow">&#9650;</span>
+                  </th>
+                  <th data-sort="methodName" class="s-sort">
+                    Method <span class="sort-arrow">&#9650;</span>
+                  </th>
+                  <th data-sort="completed" class="s-sort">
+                    Status <span class="sort-arrow">&#9650;</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="s-body">
+                <tr>
+                  <td colspan="5" class="empty">No sequence results</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="sub-tree" class="subpanel">
+          <div class="tree" id="s-tree">
+            <div class="empty">No sequence results</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-compare" class="tab-panel">
+        <div class="block compare-wrap">
+          <div class="compare-grid">
+            <div class="compare-picker">
+              <h3>File A</h3>
+              <input type="file" id="cmp-left-file" accept=".xml" />
+              <div class="compare-meta" id="cmp-left-meta">No file selected</div>
+            </div>
+            <div class="compare-picker">
+              <h3>File B</h3>
+              <input type="file" id="cmp-right-file" accept=".xml" />
+              <div class="compare-meta" id="cmp-right-meta">No file selected</div>
+            </div>
+          </div>
+          <div class="info" id="cmp-status">Select two XML files to compare.</div>
+          <div class="compare-results" id="cmp-results">
+            <div class="empty">Comparison results will appear here.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      let junitTests = [];
+      let sequenceTests = [];
+      let fileNames = [];
+      const APP_VERSION = "1.0.0";
+
+      let advancedSort = { key: "", asc: true };
+      let sequenceSort = { key: "seq", asc: true };
+      const compareState = { left: null, right: null };
+
+      const dropZone = document.getElementById("dropZone");
+      const fileInput = document.getElementById("fileInput");
+      const cmpLeftFile = document.getElementById("cmp-left-file");
+      const cmpRightFile = document.getElementById("cmp-right-file");
+      document.getElementById("appVersion").textContent = "v" + APP_VERSION;
+
+      function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.appendChild(document.createTextNode(String(str || "")));
+        return div.innerHTML;
+      }
+
+      function formatTime(time) {
+        const n = parseFloat(time);
+        if (Number.isNaN(n)) return escapeHtml(time || "");
+        if (n >= 1) return n.toFixed(3) + "s";
+        return (n * 1000).toFixed(1) + "ms";
+      }
+
+      function normalizeStatus(tc) {
+        const failure = tc.querySelector("failure");
+        const skipped = tc.querySelector("skipped");
+        if (failure) return "fail";
+        if (skipped) return "skipped";
+        return "pass";
+      }
+
+      function parseTestName(fullName, displayName) {
+        const parts = (fullName || "").split(".");
+        const methodName = parts[parts.length - 1] || "";
+        const className = parts.length >= 2 ? parts[parts.length - 2] : "";
+        const namespace = parts.slice(0, parts.length - 2).join(".");
+        let params = "";
+        const m = (displayName || "").match(/\((.+)\)\s*$/);
+        if (m) params = m[1];
+        return { namespace, className, methodName, params };
+      }
+
+      function parseJUnit(xml) {
+        const suites = xml.querySelectorAll("testsuite");
+        const mapped = [];
+        suites.forEach((suite) => {
+          const suiteName = suite.getAttribute("name") || "";
+          suite.querySelectorAll("testcase").forEach((tc) => {
+            const failureNode = tc.querySelector("failure");
+            mapped.push({
+              suite: suiteName,
+              classname: tc.getAttribute("classname") || "",
+              name: tc.getAttribute("name") || "",
+              time: tc.getAttribute("time") || "",
+              status: normalizeStatus(tc),
+              failure: failureNode ? failureNode.textContent || "" : "",
+              systemOut:
+                (tc.querySelector("system-out") || {}).textContent || "",
+              systemErr:
+                (tc.querySelector("system-err") || {}).textContent || "",
+            });
+          });
+        });
+        return mapped;
+      }
+
+      function detectXmlType(xml) {
+        const junitSuites = xml.querySelectorAll("testsuite").length;
+        const junitCases = xml.querySelectorAll("testcase").length;
+        const sequenceTests = xml.querySelectorAll("Test").length;
+
+        const hasJunit = junitSuites > 0 || junitCases > 0;
+        const hasSequence = sequenceTests > 0;
+
+        if (hasJunit && hasSequence) return "mixed";
+        if (hasJunit) return "junit";
+        if (hasSequence) return "sequence";
+        return "unknown";
+      }
+
+      function parseSequence(xml, fileName, startSeq = sequenceTests.length) {
+        const nodes = xml.querySelectorAll("Test");
+        const mapped = [];
+        let seq = startSeq;
+        nodes.forEach((el) => {
+          const fullName = el.getAttribute("Name") || "";
+          const displayName = el.getAttribute("DisplayName") || fullName;
+          const source = el.getAttribute("Source") || "";
+          const completed = el.getAttribute("Completed") === "True";
+          const parsed = parseTestName(fullName, displayName);
+          mapped.push({
+            seq: ++seq,
+            fullName,
+            displayName,
+            source,
+            completed,
+            namespace: parsed.namespace,
+            className: parsed.className,
+            methodName: parsed.methodName,
+            params: parsed.params,
+            file: fileName,
+          });
+        });
+        return mapped;
+      }
+
+      function handleFiles(files) {
+        let pending = files.length;
+        let loadedJunit = false;
+        let loadedSequence = false;
+
+        for (const file of files) {
+          fileNames.push(file.name);
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(e.target.result, "text/xml");
+            const xmlType = detectXmlType(xml);
+
+            if (xmlType === "junit" || xmlType === "mixed") {
+              const junit = parseJUnit(xml);
+              junitTests = junitTests.concat(junit);
+              if (junit.length > 0) loadedJunit = true;
+            }
+
+            if (xmlType === "sequence" || xmlType === "mixed") {
+              const sequence = parseSequence(xml, file.name);
+              sequenceTests = sequenceTests.concat(sequence);
+              if (sequence.length > 0) loadedSequence = true;
+            }
+
+            pending--;
+            renderAll();
+            updateHeader();
+
+            if (pending === 0) {
+              if (loadedJunit) {
+                activateTab("advanced");
+              } else if (loadedSequence) {
+                activateTab("sequence");
+              }
+            }
+          };
+          reader.readAsText(file);
+        }
+      }
+
+      function updateHeader() {
+        document.getElementById("fileInfo").textContent = fileNames.length
+          ? fileNames.join(", ")
+          : "No file loaded";
+      }
+
+      dropZone.onclick = (e) => {
+        if (e.target === fileInput) return;
+        fileInput.click();
+      };
+
+      dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("hover");
+      });
+
+      dropZone.addEventListener("dragleave", () =>
+        dropZone.classList.remove("hover"),
+      );
+
+      dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("hover");
+        handleFiles(e.dataTransfer.files);
+      });
+
+      fileInput.onchange = (e) => handleFiles(e.target.files);
+
+      function junitStats() {
+        const total = junitTests.length;
+        const passed = junitTests.filter((t) => t.status === "pass").length;
+        const failed = junitTests.filter((t) => t.status === "fail").length;
+        const skipped = junitTests.filter((t) => t.status === "skipped").length;
+        const passRate = total ? Math.round((passed / total) * 100) : 0;
+        return { total, passed, failed, skipped, passRate };
+      }
+
+      function junitStatsFrom(list) {
+        const total = list.length;
+        const passed = list.filter((t) => t.status === "pass").length;
+        const failed = list.filter((t) => t.status === "fail").length;
+        const skipped = list.filter((t) => t.status === "skipped").length;
+        const passRate = total ? Math.round((passed / total) * 100) : 0;
+        return { total, passed, failed, skipped, passRate };
+      }
+
+      function sequenceStatsFrom(list) {
+        const total = list.length;
+        const completed = list.filter((t) => t.completed).length;
+        const incomplete = total - completed;
+        const namespaces = new Set(list.map((t) => t.namespace)).size;
+        const completedRate = total ? Math.round((completed / total) * 100) : 0;
+        return { total, completed, incomplete, namespaces, completedRate };
+      }
+
+      function formatDelta(value, suffix = "") {
+        if (value > 0) return "+" + value + suffix;
+        if (value < 0) return String(value) + suffix;
+        return "0" + suffix;
+      }
+
+      function deltaClass(value) {
+        if (value > 0) return "delta-positive";
+        if (value < 0) return "delta-negative";
+        return "delta-neutral";
+      }
+
+      function parseCompareFile(file, side) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(e.target.result, "text/xml");
+          const type = detectXmlType(xml);
+
+          let entry = { name: file.name, type, junit: [], sequence: [] };
+          if (type === "junit" || type === "mixed") entry.junit = parseJUnit(xml);
+          if (type === "sequence" || type === "mixed") {
+            entry.sequence = parseSequence(xml, file.name, 0);
+          }
+
+          compareState[side] = entry;
+          const meta = document.getElementById(
+            side === "left" ? "cmp-left-meta" : "cmp-right-meta",
+          );
+          meta.textContent = file.name + " (" + type + ")";
+          renderCompare();
+        };
+        reader.readAsText(file);
+      }
+
+      function renderCompare() {
+        const status = document.getElementById("cmp-status");
+        const results = document.getElementById("cmp-results");
+        const left = compareState.left;
+        const right = compareState.right;
+
+        if (!left || !right) {
+          status.textContent = "Select both files to compare.";
+          results.innerHTML =
+            '<div class="empty">Comparison results will appear here.</div>';
+          return;
+        }
+
+        if (left.type === "unknown" || right.type === "unknown") {
+          status.textContent =
+            "One of the files is not recognized as JUnit or Sequence XML.";
+          results.innerHTML = '<div class="empty">Unable to compare unknown format.</div>';
+          return;
+        }
+
+        if (left.type !== right.type) {
+          status.textContent =
+            "File types do not match: " + left.type + " vs " + right.type + ".";
+          results.innerHTML = '<div class="empty">Choose two files of the same type.</div>';
+          return;
+        }
+
+        if (left.type === "mixed") {
+          status.textContent =
+            "Mixed XML format detected. Compare using pure JUnit or pure Sequence files.";
+          results.innerHTML = '<div class="empty">Mixed format comparison is not supported.</div>';
+          return;
+        }
+
+        if (left.type === "junit") {
+          const ls = junitStatsFrom(left.junit);
+          const rs = junitStatsFrom(right.junit);
+          status.textContent = "Comparing two JUnit files.";
+          const passRateDelta = rs.passRate - ls.passRate;
+          results.innerHTML =
+            '<div class="block table-block"><table><thead><tr><th>Metric</th><th>File A</th><th>File B</th><th>Delta (B - A)</th></tr></thead><tbody>' +
+            "<tr><td>Total Tests</td><td>" +
+            ls.total +
+            "</td><td>" +
+            rs.total +
+            "</td><td class=\"" +
+            deltaClass(rs.total - ls.total) +
+            "\">" +
+            formatDelta(rs.total - ls.total) +
+            "</td></tr>" +
+            "<tr><td>Passed</td><td>" +
+            ls.passed +
+            "</td><td>" +
+            rs.passed +
+            "</td><td class=\"" +
+            deltaClass(rs.passed - ls.passed) +
+            "\">" +
+            formatDelta(rs.passed - ls.passed) +
+            "</td></tr>" +
+            "<tr><td>Failed</td><td>" +
+            ls.failed +
+            "</td><td>" +
+            rs.failed +
+            "</td><td class=\"" +
+            deltaClass(rs.failed - ls.failed) +
+            "\">" +
+            formatDelta(rs.failed - ls.failed) +
+            "</td></tr>" +
+            "<tr><td>Skipped</td><td>" +
+            ls.skipped +
+            "</td><td>" +
+            rs.skipped +
+            "</td><td class=\"" +
+            deltaClass(rs.skipped - ls.skipped) +
+            "\">" +
+            formatDelta(rs.skipped - ls.skipped) +
+            "</td></tr>" +
+            "<tr><td>Pass Rate</td><td>" +
+            ls.passRate +
+            "%</td><td>" +
+            rs.passRate +
+            "%</td><td class=\"" +
+            deltaClass(passRateDelta) +
+            "\">" +
+            formatDelta(passRateDelta, "%") +
+            "</td></tr>" +
+            "</tbody></table></div>";
+          return;
+        }
+
+        const ls = sequenceStatsFrom(left.sequence);
+        const rs = sequenceStatsFrom(right.sequence);
+        status.textContent = "Comparing two Sequence files.";
+        const completedRateDelta = rs.completedRate - ls.completedRate;
+        results.innerHTML =
+          '<div class="block table-block"><table><thead><tr><th>Metric</th><th>File A</th><th>File B</th><th>Delta (B - A)</th></tr></thead><tbody>' +
+          "<tr><td>Total Tests</td><td>" +
+          ls.total +
+          "</td><td>" +
+          rs.total +
+          "</td><td class=\"" +
+          deltaClass(rs.total - ls.total) +
+          "\">" +
+          formatDelta(rs.total - ls.total) +
+          "</td></tr>" +
+          "<tr><td>Completed</td><td>" +
+          ls.completed +
+          "</td><td>" +
+          rs.completed +
+          "</td><td class=\"" +
+          deltaClass(rs.completed - ls.completed) +
+          "\">" +
+          formatDelta(rs.completed - ls.completed) +
+          "</td></tr>" +
+          "<tr><td>Incomplete</td><td>" +
+          ls.incomplete +
+          "</td><td>" +
+          rs.incomplete +
+          "</td><td class=\"" +
+          deltaClass(rs.incomplete - ls.incomplete) +
+          "\">" +
+          formatDelta(rs.incomplete - ls.incomplete) +
+          "</td></tr>" +
+          "<tr><td>Namespaces</td><td>" +
+          ls.namespaces +
+          "</td><td>" +
+          rs.namespaces +
+          "</td><td class=\"" +
+          deltaClass(rs.namespaces - ls.namespaces) +
+          "\">" +
+          formatDelta(rs.namespaces - ls.namespaces) +
+          "</td></tr>" +
+          "<tr><td>Completed Rate</td><td>" +
+          ls.completedRate +
+          "%</td><td>" +
+          rs.completedRate +
+          "%</td><td class=\"" +
+          deltaClass(completedRateDelta) +
+          "\">" +
+          formatDelta(completedRateDelta, "%") +
+          "</td></tr>" +
+          "</tbody></table></div>";
+      }
+
+      function sequenceStats() {
+        const total = sequenceTests.length;
+        const completed = sequenceTests.filter((t) => t.completed).length;
+        const incomplete = total - completed;
+        const nsCount = new Set(sequenceTests.map((t) => t.namespace)).size;
+        const sources = Array.from(
+          new Set(sequenceTests.map((t) => t.source).filter(Boolean)),
+        );
+        return { total, completed, incomplete, nsCount, sources };
+      }
+
+      function renderModern() {
+        const s = junitStats();
+        document.getElementById("m-total").textContent = s.total;
+        document.getElementById("m-pass").textContent = s.passed;
+        document.getElementById("m-fail").textContent = s.failed;
+        document.getElementById("m-skip").textContent = s.skipped;
+        document.getElementById("m-rate").textContent = s.passRate + "%";
+        const bar = document.getElementById("m-rate-bar");
+        bar.style.width = s.passRate + "%";
+        if (s.passRate >= 80) bar.style.background = "var(--green)";
+        else if (s.passRate >= 50) bar.style.background = "var(--amber)";
+        else bar.style.background = "var(--red)";
+      }
+
+      function getAdvancedFiltered() {
+        const status = document.getElementById("a-status").value;
+        const suite = document
+          .getElementById("a-suite")
+          .value.trim()
+          .toLowerCase();
+        const cls = document
+          .getElementById("a-class")
+          .value.trim()
+          .toLowerCase();
+        const search = document
+          .getElementById("a-search")
+          .value.trim()
+          .toLowerCase();
+
+        const filtered = junitTests.filter(
+          (t) =>
+            (!status || t.status === status) &&
+            (!suite || t.suite.toLowerCase().includes(suite)) &&
+            (!cls || t.classname.toLowerCase().includes(cls)) &&
+            (!search || t.name.toLowerCase().includes(search)),
+        );
+
+        if (advancedSort.key) {
+          filtered.sort((a, b) => {
+            let v1 = a[advancedSort.key];
+            let v2 = b[advancedSort.key];
+            if (advancedSort.key === "time") {
+              v1 = parseFloat(v1) || 0;
+              v2 = parseFloat(v2) || 0;
+            }
+            if (v1 > v2) return advancedSort.asc ? 1 : -1;
+            if (v1 < v2) return advancedSort.asc ? -1 : 1;
+            return 0;
+          });
+        }
+
+        return filtered;
+      }
+
+      function renderAdvanced() {
+        const body = document.getElementById("a-body");
+        body.innerHTML = "";
+        const filtered = getAdvancedFiltered();
+        document.getElementById("a-info").textContent =
+          "Showing " + filtered.length + " of " + junitTests.length + " tests";
+        const statusLabel = {
+          pass: "Passed",
+          fail: "Failed",
+          skipped: "Skipped",
+        };
+
+        if (!filtered.length) {
+          body.innerHTML =
+            '<tr><td colspan="6" class="empty">No results</td></tr>';
+          return;
+        }
+
+        filtered.forEach((t, i) => {
+          const row = document.createElement("tr");
+          row.dataset.row = "data";
+          row.innerHTML =
+            '<td class="mono">' +
+            (i + 1) +
+            "</td>" +
+            "<td>" +
+            escapeHtml(t.suite) +
+            "</td>" +
+            '<td class="mono ellipsize" title="' +
+            escapeHtml(t.classname) +
+            '">' +
+            escapeHtml(t.classname) +
+            "</td>" +
+            '<td class="test-name">' +
+            escapeHtml(t.name) +
+            "</td>" +
+            '<td><span class="status-chip status-' +
+            t.status +
+            '"><span class="dot"></span>' +
+            escapeHtml(statusLabel[t.status] || t.status) +
+            "</span></td>" +
+            '<td class="mono">' +
+            escapeHtml(formatTime(t.time)) +
+            "</td>";
+          body.appendChild(row);
+
+          const detail = document.createElement("tr");
+          detail.className = "details-row";
+          detail.id = "a-detail-" + i;
+          const failHtml = t.failure
+            ? "<pre>" + escapeHtml(t.failure) + "</pre>"
+            : '<pre class="empty">None</pre>';
+          const outHtml = t.systemOut
+            ? "<pre>" + escapeHtml(t.systemOut) + "</pre>"
+            : '<pre class="empty">None</pre>';
+          const errHtml = t.systemErr
+            ? "<pre>" + escapeHtml(t.systemErr) + "</pre>"
+            : '<pre class="empty">None</pre>';
+          detail.innerHTML =
+            '<td colspan="6" class="details-cell"><div class="details-wrap">' +
+            "<h4>Failure</h4>" +
+            failHtml +
+            "<h4>System Out</h4>" +
+            outHtml +
+            "<h4>System Err</h4>" +
+            errHtml +
+            "</div></td>";
+          body.appendChild(detail);
+
+          row.onclick = () => {
+            detail.style.display =
+              detail.style.display === "table-row" ? "none" : "table-row";
+          };
+        });
+      }
+
+      function populateSequenceNamespaceFilter() {
+        const sel = document.getElementById("s-namespace");
+        const previous = sel.value;
+        const namespaces = Array.from(
+          new Set(sequenceTests.map((t) => t.namespace)),
+        ).sort();
+        sel.innerHTML = '<option value="">All Namespaces</option>';
+        namespaces.forEach((ns) => {
+          const opt = document.createElement("option");
+          opt.value = ns;
+          opt.textContent = ns || "(root)";
+          sel.appendChild(opt);
+        });
+        if (Array.from(sel.options).some((o) => o.value === previous))
+          sel.value = previous;
+      }
+
+      function getSequenceFiltered() {
+        const status = document.getElementById("s-status").value;
+        const ns = document.getElementById("s-namespace").value;
+        const search = document
+          .getElementById("s-search")
+          .value.trim()
+          .toLowerCase();
+
+        const filtered = sequenceTests.filter(
+          (t) =>
+            (!status ||
+              (status === "True" && t.completed) ||
+              (status === "False" && !t.completed)) &&
+            (!ns || t.namespace === ns) &&
+            (!search ||
+              t.fullName.toLowerCase().includes(search) ||
+              t.displayName.toLowerCase().includes(search) ||
+              t.className.toLowerCase().includes(search) ||
+              t.methodName.toLowerCase().includes(search)),
+        );
+
+        if (sequenceSort.key) {
+          filtered.sort((a, b) => {
+            let v1 = a[sequenceSort.key];
+            let v2 = b[sequenceSort.key];
+            if (sequenceSort.key === "seq") {
+              v1 = Number(v1);
+              v2 = Number(v2);
+            }
+            if (sequenceSort.key === "completed") {
+              v1 = v1 ? 1 : 0;
+              v2 = v2 ? 1 : 0;
+            }
+            if (typeof v1 === "string") v1 = v1.toLowerCase();
+            if (typeof v2 === "string") v2 = v2.toLowerCase();
+            if (v1 > v2) return sequenceSort.asc ? 1 : -1;
+            if (v1 < v2) return sequenceSort.asc ? -1 : 1;
+            return 0;
+          });
+        }
+
+        return filtered;
+      }
+
+      function renderSequenceDashboard() {
+        const s = sequenceStats();
+        document.getElementById("s-total").textContent = s.total;
+        document.getElementById("s-completed").textContent = s.completed;
+        document.getElementById("s-incomplete").textContent = s.incomplete;
+        document.getElementById("s-ns").textContent = s.nsCount;
+
+        const sourceBox = document.getElementById("s-source");
+        if (s.sources.length) {
+          sourceBox.style.display = "block";
+          sourceBox.innerHTML =
+            "<strong>Source:</strong> " +
+            s.sources
+              .map((src) => "<code>" + escapeHtml(src) + "</code>")
+              .join(", ");
+        } else {
+          sourceBox.style.display = "none";
+          sourceBox.innerHTML = "";
+        }
+      }
+
+      function renderSequenceTable() {
+        populateSequenceNamespaceFilter();
+        const body = document.getElementById("s-body");
+        body.innerHTML = "";
+        const filtered = getSequenceFiltered();
+        document.getElementById("s-info").textContent =
+          "Showing " +
+          filtered.length +
+          " of " +
+          sequenceTests.length +
+          " tests";
+
+        if (!filtered.length) {
+          body.innerHTML =
+            '<tr><td colspan="5" class="empty">No sequence results</td></tr>';
+          return;
+        }
+
+        filtered.forEach((t, i) => {
+          const row = document.createElement("tr");
+          row.dataset.row = "data";
+          let methodDisplay = escapeHtml(t.methodName);
+          if (t.params)
+            methodDisplay +=
+              '<div class="test-params">(' + escapeHtml(t.params) + ")</div>";
+
+          row.innerHTML =
+            '<td><span class="seq-num">' +
+            t.seq +
+            "</span></td>" +
+            '<td><span class="ns-tag">' +
+            escapeHtml(
+              (t.namespace || "").split(".").slice(-2).join(".") || "root",
+            ) +
+            "</span></td>" +
+            '<td class="mono ellipsize" title="' +
+            escapeHtml(t.className) +
+            '">' +
+            escapeHtml(t.className) +
+            "</td>" +
+            "<td>" +
+            methodDisplay +
+            "</td>" +
+            '<td><span class="status-chip status-' +
+            (t.completed ? "pass" : "fail") +
+            '"><span class="dot"></span>' +
+            escapeHtml(t.completed ? "completed" : "incomplete") +
+            "</span></td>";
+          body.appendChild(row);
+
+          const detail = document.createElement("tr");
+          detail.className = "details-row";
+          detail.id = "s-detail-" + i;
+          detail.innerHTML =
+            '<td colspan="5" class="details-cell"><div class="details-wrap">' +
+            '<div class="detail-line"><span class="detail-label">Full Name</span><span>' +
+            escapeHtml(t.fullName) +
+            "</span></div>" +
+            '<div class="detail-line"><span class="detail-label">Display Name</span><span>' +
+            escapeHtml(t.displayName) +
+            "</span></div>" +
+            '<div class="detail-line"><span class="detail-label">Namespace</span><span>' +
+            escapeHtml(t.namespace) +
+            "</span></div>" +
+            '<div class="detail-line"><span class="detail-label">Class</span><span>' +
+            escapeHtml(t.className) +
+            "</span></div>" +
+            '<div class="detail-line"><span class="detail-label">Method</span><span>' +
+            escapeHtml(t.methodName) +
+            "</span></div>" +
+            (t.params
+              ? '<div class="detail-line"><span class="detail-label">Parameters</span><span>' +
+                escapeHtml(t.params) +
+                "</span></div>"
+              : "") +
+            '<div class="detail-line"><span class="detail-label">Source</span><span>' +
+            escapeHtml(t.source) +
+            "</span></div>" +
+            '<div class="detail-line"><span class="detail-label">Status</span><span>' +
+            escapeHtml(t.completed ? "Completed" : "Incomplete") +
+            "</span></div>" +
+            "</div></td>";
+          body.appendChild(detail);
+
+          row.onclick = () => {
+            detail.style.display =
+              detail.style.display === "table-row" ? "none" : "table-row";
+          };
+        });
+      }
+
+      function buildSequenceTree() {
+        const container = document.getElementById("s-tree");
+        container.innerHTML = "";
+        if (!sequenceTests.length) {
+          container.innerHTML = '<div class="empty">No sequence results</div>';
+          return;
+        }
+
+        const treeData = {};
+        sequenceTests.forEach((t) => {
+          if (!treeData[t.namespace]) treeData[t.namespace] = {};
+          if (!treeData[t.namespace][t.className])
+            treeData[t.namespace][t.className] = [];
+          treeData[t.namespace][t.className].push(t);
+        });
+
+        Object.keys(treeData)
+          .sort()
+          .forEach((ns) => {
+            const nsTests = Object.values(treeData[ns]).flat();
+            const nsNode = document.createElement("div");
+            nsNode.className = "tree-node";
+
+            const nsBranch = document.createElement("div");
+            nsBranch.className = "tree-branch";
+            nsBranch.innerHTML =
+              '<span class="toggle">&#9654;</span><span>' +
+              escapeHtml(ns || "(root)") +
+              '</span><span class="count">' +
+              nsTests.length +
+              "</span>";
+            const nsChildren = document.createElement("div");
+            nsChildren.className = "tree-children";
+
+            nsBranch.onclick = () => {
+              nsChildren.classList.toggle("open");
+              nsBranch.querySelector(".toggle").classList.toggle("open");
+            };
+
+            Object.keys(treeData[ns])
+              .sort()
+              .forEach((cls) => {
+                const classTests = treeData[ns][cls];
+                const classNode = document.createElement("div");
+                classNode.className = "tree-node";
+
+                const classBranch = document.createElement("div");
+                classBranch.className = "tree-branch";
+                classBranch.innerHTML =
+                  '<span class="toggle">&#9654;</span><span>' +
+                  escapeHtml(cls || "(unknown)") +
+                  '</span><span class="count">' +
+                  classTests.length +
+                  "</span>";
+                const classChildren = document.createElement("div");
+                classChildren.className = "tree-children";
+
+                classBranch.onclick = (e) => {
+                  e.stopPropagation();
+                  classChildren.classList.toggle("open");
+                  classBranch.querySelector(".toggle").classList.toggle("open");
+                };
+
+                classTests.forEach((t) => {
+                  const leaf = document.createElement("div");
+                  leaf.className = "tree-leaf";
+                  let label = t.methodName;
+                  if (t.params) label += " (" + t.params + ")";
+                  leaf.innerHTML =
+                    '<span class="leaf-dot ' +
+                    (t.completed ? "completed" : "incomplete") +
+                    '"></span><span title="' +
+                    escapeHtml(t.displayName) +
+                    '">' +
+                    escapeHtml(label) +
+                    "</span>";
+                  classChildren.appendChild(leaf);
+                });
+
+                classNode.appendChild(classBranch);
+                classNode.appendChild(classChildren);
+                nsChildren.appendChild(classNode);
+              });
+
+            nsNode.appendChild(nsBranch);
+            nsNode.appendChild(nsChildren);
+            container.appendChild(nsNode);
+          });
+      }
+
+      function renderSequence() {
+        renderSequenceDashboard();
+        renderSequenceTable();
+        buildSequenceTree();
+      }
+
+      function renderAll() {
+        renderModern();
+        renderAdvanced();
+        renderSequence();
+      }
+
+      function activateTab(tab) {
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((btn) =>
+            btn.classList.toggle("active", btn.dataset.tab === tab),
+          );
+        document
+          .querySelectorAll(".tab-panel")
+          .forEach((panel) =>
+            panel.classList.toggle("active", panel.id === "tab-" + tab),
+          );
+      }
+
+      function activateSubtab(sub) {
+        document
+          .querySelectorAll(".subtab-btn")
+          .forEach((btn) =>
+            btn.classList.toggle("active", btn.dataset.sub === sub),
+          );
+        document
+          .querySelectorAll(".subpanel")
+          .forEach((panel) =>
+            panel.classList.toggle("active", panel.id === "sub-" + sub),
+          );
+      }
+
+      document.getElementById("tabs").addEventListener("click", (e) => {
+        if (!e.target.classList.contains("tab-btn")) return;
+        activateTab(e.target.dataset.tab);
+      });
+
+      document.getElementById("seqSubtabs").addEventListener("click", (e) => {
+        if (!e.target.classList.contains("subtab-btn")) return;
+        activateSubtab(e.target.dataset.sub);
+      });
+
+      cmpLeftFile.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        parseCompareFile(file, "left");
+      });
+
+      cmpRightFile.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        parseCompareFile(file, "right");
+      });
+
+      document
+        .querySelectorAll("#a-status,#a-suite,#a-class,#a-search")
+        .forEach((el) => el.addEventListener("input", renderAdvanced));
+      document
+        .querySelectorAll("#s-status,#s-namespace,#s-search")
+        .forEach((el) =>
+          el.addEventListener("input", () => {
+            renderSequenceTable();
+            buildSequenceTree();
+          }),
+        );
+
+      document.querySelectorAll(".a-sort").forEach((th) => {
+        th.onclick = () => {
+          const key = th.dataset.sort;
+          if (advancedSort.key === key) advancedSort.asc = !advancedSort.asc;
+          else {
+            advancedSort.key = key;
+            advancedSort.asc = true;
+          }
+          document
+            .querySelectorAll(".a-sort")
+            .forEach((x) => x.classList.remove("sorted"));
+          th.classList.add("sorted");
+          th.querySelector(".sort-arrow").innerHTML = advancedSort.asc
+            ? "&#9650;"
+            : "&#9660;";
+          renderAdvanced();
+        };
+      });
+
+      document.querySelectorAll(".s-sort").forEach((th) => {
+        th.onclick = () => {
+          const key = th.dataset.sort;
+          if (sequenceSort.key === key) sequenceSort.asc = !sequenceSort.asc;
+          else {
+            sequenceSort.key = key;
+            sequenceSort.asc = true;
+          }
+          document
+            .querySelectorAll(".s-sort")
+            .forEach((x) => x.classList.remove("sorted"));
+          th.classList.add("sorted");
+          th.querySelector(".sort-arrow").innerHTML = sequenceSort.asc
+            ? "&#9650;"
+            : "&#9660;";
+          renderSequenceTable();
+        };
+      });
+
+      renderAll();
+    </script>
+  </body>
+</html>
