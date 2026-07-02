@@ -1,3 +1,5 @@
 User-agent: *
-Disallow: 
+Allow: /
+
 Sitemap: https://pratikm.dev/sitemap.xml
+Host: pratikm.dev

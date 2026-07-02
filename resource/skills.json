@@ -1,0 +1,18 @@
+{
+  "stack": [
+    { "name": "React", "level": 90, "color": "#61dafb" },
+    { "name": "TypeScript", "level": 88, "color": "#3178c6" },
+    { "name": "JavaScript", "level": 92, "color": "#f7df1e" },
+    { "name": "Flutter", "level": 75, "color": "#54c5f8" },
+    { "name": "ASP.NET", "level": 80, "color": "#512bd4" },
+    { "name": "SQL", "level": 85, "color": "#e38c00" },
+    { "name": "REST APIs", "level": 90, "color": "#22d3ee" },
+    { "name": "CSS 3D", "level": 85, "color": "#f472b6" }
+  ],
+  "highlights": [
+    { "value": "6+", "label": "Years coding" },
+    { "value": "7", "label": "Bit projects" },
+    { "value": "2020", "label": "At Connection Loops" },
+    { "value": "∞", "label": "Curiosity" }
+  ]
+}

@@ -1,0 +1,14 @@
+/* TEAM */
+Developer: Pratik Mohite
+Site: https://pratikm.dev
+Twitter: @PratikMMohite
+GitHub: pratikmmohite
+Location: India
+
+/* THANKS */
+Connection Loops Pvt. Ltd.
+
+/* SITE */
+Last update: 2026/07/02
+Language: English
+Standards: HTML5, CSS3, JSON-LD
