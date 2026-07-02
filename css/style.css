@@ -209,6 +209,11 @@ body {
   gap: 0.75rem;
 }
 
+.hero__stats {
+  display: block;
+  margin-top: 2.5rem;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
