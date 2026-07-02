@@ -117,21 +117,157 @@
       }
     </script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="color-scheme" content="dark" />
     <link rel="stylesheet" href="./css/style.css" />
     <script type="module" src="./js/pre_index.js"></script>
   </head>
   <body>
     <span id="template-container"></span>
-    <div class="p-layout">
-      <p-header class="p-header"></p-header>
-      <p-nav class="p-nav"></p-nav>
-      <main class="p-main p-main-section">
-        <p-cube class="p-cube" size="20vw" style="z-index: -1"></p-cube>
-        <p-bit-list class="p-bit-list"></p-bit-list>
-        <p-byte-list class="p-bit-list"></p-bit-list>
-      </main>
-      <p-footer class="p-footer"></p-footer>
+    <p-particles class="p-particles"></p-particles>
+
+    <div class="site">
+      <p-nav></p-nav>
+
+      <section id="hero" class="hero">
+        <div class="hero__content reveal">
+          <div class="hero__badge">
+            <span class="hero__badge-dot" aria-hidden="true"></span>
+            Available for interesting projects
+          </div>
+          <h1 class="hero__name">
+            Pratik<br /><span>Mohite</span>
+          </h1>
+          <p class="hero__role">Software Developer · Cloud-Native Builder</p>
+          <p class="hero__bio">
+            Building products at
+            <a href="https://www.connectionloops.com" target="_blank" rel="noopener"
+              >Connection Loops Pvt. Ltd.</a
+            >
+            since 2020. I craft full-stack experiences with React, TypeScript,
+            Flutter, ASP.NET, and REST APIs — and experiment with CSS 3D, animation,
+            and creative web bits on the side.
+          </p>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#projects">Explore bits →</a>
+            <a class="btn btn--ghost" href="https://github.com/pratikmmohite" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <p-stats></p-stats>
+        </div>
+
+        <div class="hero__scene reveal">
+          <div class="hero__scene-glow" aria-hidden="true"></div>
+          <p-cube interactive size="min(42vw, 300px)"></p-cube>
+          <img
+            class="hero__avatar"
+            src="https://avatars.githubusercontent.com/u/32018912"
+            alt="Pratik Mohite profile photo"
+            width="90"
+            height="90"
+            loading="eager"
+          />
+        </div>
+      </section>
+
+      <section id="about" class="section about reveal">
+        <p class="section__eyebrow">01 — About</p>
+        <h2 class="section__title">Code, curiosity &amp; cloud-native craft</h2>
+        <div class="about__grid">
+          <div class="about__text section__desc">
+            <p>
+              I'm Pratik Mohite, a software developer based in India with a passion
+              for turning ideas into reliable, scalable applications. At Connection
+              Loops, I work on enterprise-grade solutions spanning web, mobile, and
+              backend systems.
+            </p>
+            <p>
+              Beyond day-to-day engineering, I maintain this portfolio of interactive
+              <strong>bits</strong> — small experiments in CSS 3D, animation, tooling,
+              and UI — each one linked below and open on GitHub.
+            </p>
+          </div>
+          <div class="about__text section__desc">
+            <p>
+              My stack centers on <strong>React</strong> and <strong>TypeScript</strong>
+              for frontends, <strong>ASP.NET</strong> and <strong>SQL</strong> for
+              backends, and <strong>Flutter</strong> when mobile is the answer.
+            </p>
+            <p>
+              When I'm not shipping features, you'll find me writing on
+              <a href="https://blog.pratikm.dev" target="_blank" rel="noopener">my blog</a>,
+              contributing on
+              <a href="https://github.com/pratikmmohite" target="_blank" rel="noopener">GitHub</a>,
+              or prototyping the next playful web experiment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="section skills-section reveal">
+        <p class="section__eyebrow">02 — Stack</p>
+        <h2 class="section__title">Technologies I work with</h2>
+        <p class="section__desc">
+          Hover the orbit — each node represents a core skill. Drag your cursor
+          around the hero cube for a live 3D preview of what's possible with pure CSS.
+        </p>
+        <p-skill-orbit></p-skill-orbit>
+      </section>
+
+      <section id="projects" class="section projects-section reveal">
+        <p class="section__eyebrow">03 — Bits</p>
+        <h2 class="section__title">Interactive project gallery</h2>
+        <p class="section__desc">
+          Seven experiments and apps — from CSS clocks to a live savings-group
+          manager. Hover any card for a 3D tilt effect, click to launch the demo.
+        </p>
+        <p-project-grid></p-project-grid>
+      </section>
+
+      <section id="connect" class="section connect-section reveal">
+        <p class="section__eyebrow">04 — Connect</p>
+        <h2 class="section__title">Let's build something</h2>
+        <p class="section__desc">
+          Open to collaborations, freelance work, and conversations about
+          interesting problems. Reach out through any channel below.
+        </p>
+        <div class="connect__links">
+          <a class="connect__link" href="https://github.com/pratikmmohite" target="_blank" rel="noopener">
+            <img src="images/brands/github.svg" alt="" width="22" height="22" loading="lazy" />
+            GitHub
+          </a>
+          <a class="connect__link" href="https://blog.pratikm.dev" target="_blank" rel="noopener">
+            <img src="images/brands/blogger.svg" alt="" width="22" height="22" loading="lazy" />
+            Blog
+          </a>
+          <a class="connect__link" href="https://twitter.com/PratikMMohite" target="_blank" rel="noopener">
+            <img src="images/brands/x.svg" alt="" width="22" height="22" loading="lazy" />
+            X / Twitter
+          </a>
+          <a class="connect__link" href="https://www.sololearn.com/Profile/3003792" target="_blank" rel="noopener">
+            <img src="images/brands/sololearn.svg" alt="" width="22" height="22" loading="lazy" />
+            SoloLearn
+          </a>
+          <a class="connect__link" href="mailto:mohitepm1998@gmail.com">
+            <img src="images/brands/mail.svg" alt="" width="22" height="22" loading="lazy" />
+            Email
+          </a>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <p>
+          © 2026 Pratik Mohite · Built with web components &amp; CSS 3D ·
+          <a href="/humans.txt">humans.txt</a> ·
+          <a href="/legal/privacy.html">Privacy</a>
+        </p>
+      </footer>
     </div>
+
     <noscript>
       <article class="p-noscript-about">
         <h1>Pratik Mohite</h1>

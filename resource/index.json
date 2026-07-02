@@ -1,79 +1,100 @@
 [
-    {
-        "project_id": "1",
-        "title": "Clock",
-        "description": "",
-        "demo_link": "/bit/clock.html",
-        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/clock.html",
-        "icon": "/images/me.jpg",
-        "preview": "",
-        "tags": [],
-        "dt":"'2024-03-25T17:39:17.821Z"
-    },
-    {
-        "project_id": "2",
-        "title": "3D Cube",
-        "description": "",
-        "demo_link": "/bit/cube.html",
-        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/cube.html",
-        "icon": "/images/me.jpg",
-        "preview": "",
-        "tags": [],
-        "dt":"'2024-03-25T17:39:17.821Z"
-    },
-    {
-        "project_id": "3",
-        "title": "Eye Check Grid",
-        "description": "",
-        "demo_link": "/bit/eye_grid.html",
-        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/eye_grid.html",
-        "icon": "/images/me.jpg",
-        "preview": "",
-        "tags": [],
-        "dt":"'2024-03-25T17:39:17.821Z"
-    },
-    {
-        "project_id": "4",
-        "title": "Animated Rotating Rectangle",
-        "description": "",
-        "demo_link": "/bit/rotating_rectangle.html",
-        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/rotating_rectangle.html",
-        "icon": "/images/me.jpg",
-        "preview": "",
-        "tags": [],
-        "dt":"'2024-03-25T17:39:17.821Z"
-    },
-    {
-        "project_id": "5",
-        "title": "Basic HTML Editor",
-        "description": "",
-        "demo_link": "/bit/html_editor.html",
-        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/html_editor.html",
-        "icon": "/images/me.jpg",
-        "preview": "",
-        "tags": [],
-        "dt":"'2024-03-25T17:39:17.821Z"
-    },
-    {
-        "project_id": "6",
-        "title": "Batchat Gat Manager",
-        "description": "",
-        "demo_link": "https://bg.pratikm.dev",
-        "project_link": "https://github.com/pratikmmohite/bachatgatmanager",
-        "icon": "/images/me.jpg",
-        "preview": "",
-        "tags": [],
-        "dt":"'2024-03-25T17:39:17.821Z"
-    },
-    {
-        "project_id": "7",
-        "title": "Junit Viewer",
-        "description": "",
-        "demo_link": "/bit/junit-viewer.html",
-        "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/junit-viewer.html",
-        "icon": "/images/me.jpg",
-        "preview": "",
-        "tags": [],
-        "dt":"'2026-03-25T17:39:17.821Z"
-    }
+  {
+    "project_id": "1",
+    "title": "Clock",
+    "description": "A gallery of beautifully animated analog and digital clocks built with pure CSS transforms.",
+    "demo_link": "/bit/clock.html",
+    "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/clock.html",
+    "icon": "/images/me.jpg",
+    "preview": "",
+    "tags": [
+      { "text": "CSS", "color": "cyan" },
+      { "text": "Animation", "color": "pink" }
+    ],
+    "dt": "2024-03-25T17:39:17.821Z"
+  },
+  {
+    "project_id": "2",
+    "title": "3D Cube",
+    "description": "Interactive CSS 3D cube playground — the same technique powering this portfolio's hero scene.",
+    "demo_link": "/bit/cube.html",
+    "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/cube.html",
+    "icon": "/images/me.jpg",
+    "preview": "",
+    "tags": [
+      { "text": "3D", "color": "violet" },
+      { "text": "CSS", "color": "cyan" }
+    ],
+    "dt": "2024-03-25T17:39:17.821Z"
+  },
+  {
+    "project_id": "3",
+    "title": "Eye Check Grid",
+    "description": "An interactive Snellen-style eye examination grid for vision screening experiments.",
+    "demo_link": "/bit/eye_grid.html",
+    "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/eye_grid.html",
+    "icon": "/images/me.jpg",
+    "preview": "",
+    "tags": [
+      { "text": "UI", "color": "lime" },
+      { "text": "Health", "color": "pink" }
+    ],
+    "dt": "2024-03-25T17:39:17.821Z"
+  },
+  {
+    "project_id": "4",
+    "title": "Rotating Rectangle",
+    "description": "Mesmerizing CSS shape animations — rotating rectangles with depth and perspective.",
+    "demo_link": "/bit/rotating_rectangle.html",
+    "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/rotating_rectangle.html",
+    "icon": "/images/me.jpg",
+    "preview": "",
+    "tags": [
+      { "text": "CSS", "color": "cyan" },
+      { "text": "Motion", "color": "violet" }
+    ],
+    "dt": "2024-03-25T17:39:17.821Z"
+  },
+  {
+    "project_id": "5",
+    "title": "HTML Editor",
+    "description": "A lightweight live HTML editor with instant preview — write markup and see results in real time.",
+    "demo_link": "/bit/html_editor.html",
+    "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/html_editor.html",
+    "icon": "/images/me.jpg",
+    "preview": "",
+    "tags": [
+      { "text": "Editor", "color": "lime" },
+      { "text": "Web", "color": "cyan" }
+    ],
+    "dt": "2024-03-25T17:39:17.821Z"
+  },
+  {
+    "project_id": "6",
+    "title": "Bachat Gat Manager",
+    "description": "A full-stack cooperative savings group management platform for Indian self-help groups.",
+    "demo_link": "https://bg.pratikm.dev",
+    "project_link": "https://github.com/pratikmmohite/bachatgatmanager",
+    "icon": "/images/me.jpg",
+    "preview": "",
+    "tags": [
+      { "text": "Full-stack", "color": "violet" },
+      { "text": "Live", "color": "lime" }
+    ],
+    "dt": "2024-03-25T17:39:17.821Z"
+  },
+  {
+    "project_id": "7",
+    "title": "JUnit Viewer",
+    "description": "Parse and visualize JUnit XML test reports with pass/fail breakdowns and suite summaries.",
+    "demo_link": "/bit/junit-viewer.html",
+    "project_link": "https://github.com/pratikmmohite/pratikm.dev/blob/main/bit/junit-viewer.html",
+    "icon": "/images/me.jpg",
+    "preview": "",
+    "tags": [
+      { "text": "Testing", "color": "pink" },
+      { "text": "DevTools", "color": "cyan" }
+    ],
+    "dt": "2026-03-25T17:39:17.821Z"
+  }
 ]
