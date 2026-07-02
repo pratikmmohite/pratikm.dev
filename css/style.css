@@ -78,3 +78,10 @@ body {
       "p-main";
   }
 }
+
+.p-noscript-about {
+  max-width: 40rem;
+  margin: 1rem auto;
+  padding: 1rem;
+  line-height: 1.5;
+}
